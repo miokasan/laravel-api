@@ -5,6 +5,9 @@
 http://localhost:8000/api
 ```
 
+## Status: ✅ WORKING
+API sudah berhasil dibuat dan berjalan tanpa error 419. Semua endpoint berfungsi dengan baik.
+
 ## Endpoints
 
 ### 1. Get All Users
