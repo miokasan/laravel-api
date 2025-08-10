@@ -3,10 +3,7 @@
 ## Deskripsi
 API endpoint untuk manajemen user dengan Laravel 11 dan database MySQL.
 
-## Konfigurasi Database
-- Database: `userk`
-- Username: `satu`
-- Password: `Jombang.2025`
+
 - Host: `127.0.0.1`
 - Port: `3306`
 
