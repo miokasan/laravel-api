@@ -135,6 +135,56 @@ API sudah berhasil dibuat dan berjalan tanpa error 419. Semua endpoint berfungsi
 }
 ```
 
+### 6. Login (Get User by username & password)
+**POST** `/users/login`
+
+- `username`: bisa berupa email atau nama
+- `password`: password plaintext (akan diverifikasi dengan hash di database)
+
+**Request Body:**
+```json
+{
+  "username": "jane@example.com",
+  "password": "password123"
+}
+```
+
+**Response Success (200):**
+```json
+{
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "id": 2,
+    "nama": "Jane Doe",
+    "email": "jane@example.com",
+    "alamat": "Jl. Test No. 789",
+    "created_at": "2025-08-03T22:24:28.000000Z",
+    "updated_at": "2025-08-03T22:24:28.000000Z"
+  }
+}
+```
+
+**Response Error (401):**
+```json
+{
+  "success": false,
+  "message": "Invalid credentials"
+}
+```
+
+**Response Error (422 - Validation):**
+```json
+{
+  "success": false,
+  "message": "Validation error",
+  "errors": {
+    "username": ["The username field is required."],
+    "password": ["The password field is required."]
+  }
+}
+```
+
 ## Testing with cURL
 
 ### Create User
@@ -172,6 +222,16 @@ curl -X PUT http://localhost:8000/api/users/1 \
 ### Delete User
 ```bash
 curl -X DELETE http://localhost:8000/api/users/1
+```
+
+### Login (email atau nama)
+```bash
+curl -X POST http://localhost:8000/api/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "jane@example.com",
+    "password": "password123"
+  }'
 ```
 
 ## Validation Rules

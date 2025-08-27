@@ -23,6 +23,45 @@ class UserController extends Controller
     }
 
     /**
+     * Simple login by username (email or nama) and password.
+     */
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        $user = User::where('email', $username)
+            ->orWhere('nama', $username)
+            ->first();
+
+        if (!$user || !Hash::check($password, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Login successful',
+            'data' => $user
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
